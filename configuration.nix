@@ -169,5 +169,10 @@
   #env switch
   environment.shellAliases = {
     nixos-switch = "sudo nixos-rebuild switch -I nixos-config=/home/deepak/nixos/configuration.nix";
+
+    # Portainer: Docker GUI at http://localhost:9000 (runs only when started).
+    # First run creates the container; later runs just start the existing one.
+    portainer-up = "docker start portainer 2>/dev/null || docker run -d -p 9000:9000 --name portainer --restart=no -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest";
+    portainer-down = "docker stop portainer";
   };
 }
