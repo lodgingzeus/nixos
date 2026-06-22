@@ -66,6 +66,30 @@
     variant = "";
   };
 
+  # NVIDIA: hybrid graphics (AMD iGPU drives the display, RTX 3060 dGPU on demand).
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia = {
+    modesetting.enable = true;
+    # Power off the dGPU when idle; wake it only for offloaded apps.
+    powerManagement.enable = true;
+    powerManagement.finegrained = true;
+    # Open kernel modules: recommended for Ampere (RTX 30) and newer.
+    open = true;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true; # provides the `nvidia-offload` command
+      };
+      # Bus IDs: NVIDIA at 01:00.0, AMD iGPU at 05:00.0
+      nvidiaBusId = "PCI:1:0:0";
+      amdgpuBusId = "PCI:5:0:0";
+    };
+  };
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -113,6 +137,9 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "claude"
+    "nvidia-x11"
+    "nvidia-settings"
+    "nvidia-persistenced"
   ];
   # List packages installed in system profile. To search, run:
   # $ nix search wget
