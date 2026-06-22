@@ -90,6 +90,12 @@
     };
   };
 
+  # ASUS laptop control: asusd (fans/LEDs/power profiles) + supergfxd (GPU mode
+  # switching). Switch modes with `supergfxctl -m <Integrated|Hybrid|...>`:
+  #   Integrated = dGPU fully OFF (best battery)   Hybrid = offload (default)
+  services.asusd.enable = true;
+  services.supergfxd.enable = true;
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -199,6 +205,7 @@
   #env switch
   environment.shellAliases = {
     nixos-switch = "sudo nixos-rebuild switch --flake /home/deepak/nixos#nixos";
+    nixos-flake = "sudo nixos-rebuild switch --flake /home/deepak/nixos#nixos";
 
     # Portainer: Docker GUI at http://localhost:9000 (runs only when started).
     # First run creates the container; later runs just start the existing one.
