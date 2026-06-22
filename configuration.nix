@@ -48,7 +48,10 @@
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
+  services.xserver = {
+    enable = true;
+    desktopManager.xfce.enable = true;
+  };
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
@@ -117,7 +120,12 @@
     git
     nodejs_22
     python3  
+
+   #vnc
+	tigervnc
   ];
+
+
    programs.nix-ld.enable = true;
    programs.nix-ld.libraries = with pkgs; [
     # Add common libraries extensions need (Claude Code needs basic glibc/gcc stuff)
