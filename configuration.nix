@@ -89,7 +89,7 @@
   users.users."deepak" = {
     isNormalUser = true;
     description = "Deepak";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       kdePackages.kate
     #  thunderbird
@@ -98,6 +98,13 @@
 
   # Install firefox.
   programs.firefox.enable = true;
+
+  # Enable Docker.
+  virtualisation.docker = {
+    enable = true;
+    # Reclaim disk space by removing unused images/containers weekly.
+    autoPrune.enable = true;
+  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
