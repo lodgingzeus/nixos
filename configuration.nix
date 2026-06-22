@@ -168,7 +168,7 @@
   system.stateVersion = "26.05"; # Did you read the comment?
   #env switch
   environment.shellAliases = {
-    nixos-switch = "sudo nixos-rebuild switch -I nixos-config=/home/deepak/nixos/configuration.nix";
+    nixos-switch = "sudo nixos-rebuild switch --flake /home/deepak/nixos#nixos";
 
     # Portainer: Docker GUI at http://localhost:9000 (runs only when started).
     # First run creates the container; later runs just start the existing one.
