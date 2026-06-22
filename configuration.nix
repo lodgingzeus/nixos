@@ -14,6 +14,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  # Fix backlight control on this ASUS AMD laptop: force the GPU's native
+  # backlight interface (amdgpu_bl0) instead of the non-working acpi_video0.
+  boot.kernelParams = [ "acpi_backlight=native" ];
   networking.hostName = "nixos"; # Define your hostname.
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
