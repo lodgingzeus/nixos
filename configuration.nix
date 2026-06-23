@@ -80,6 +80,9 @@
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
+  # Phone-desktop integration: notifications, file sharing, clipboard, and media controls.
+  programs.kdeconnect.enable = true;
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
