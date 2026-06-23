@@ -24,12 +24,16 @@
     cliphist       # clipboard history (Super+Shift+C)
     wl-clipboard   # Wayland clipboard backend
 
-    # Font for the terminal/UI glyphs
+    # Fonts for the terminal/UI glyphs
     nerd-fonts.jetbrains-mono
+    inter            # clean UI font
 
-    
-    hyprland-qtutils 
-    hyprpolkitagent   
+    hyprland-qtutils
+    hyprpolkitagent
+
+    # Theming helpers
+    nwg-look            # GUI to tweak GTK theme/font/cursor under Wayland
+    qt6Packages.qt6ct   # Qt app theming control panel
   ];
 
   # Glassy terminal — Hyprland's default terminal in the keybinds.
@@ -44,5 +48,65 @@
       name = "JetBrainsMono Nerd Font";
       size = 11;
     };
+  };
+
+  # ---------- App theming + cursor ----------
+  home.pointerCursor = {
+    gtk.enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 24;
+  };
+
+  gtk = {
+    enable = true;
+    theme = {
+      name = "adw-gtk3-dark";
+      package = pkgs.adw-gtk3;
+    };
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+    cursorTheme = {
+      name = "Bibata-Modern-Classic";
+      package = pkgs.bibata-cursors;
+    };
+    font = {
+      name = "Inter";
+      size = 11;
+    };
+  };
+
+  # Route Qt apps through qt6ct so they match (dark, consistent).
+  qt = {
+    enable = true;
+    platformTheme.name = "qtct";
+  };
+
+  # ---------- Shell / terminal niceties ----------
+  programs.bash = {
+    enable = true;
+    shellAliases = {
+      # Keep your rebuild shortcuts available in Hyprland terminals too.
+      nixos-flake = "sudo nixos-rebuild switch --flake /home/deepak/nixos#nixos";
+      nixos-switch = "sudo nixos-rebuild switch --flake /home/deepak/nixos#nixos";
+      cat = "bat";
+      cd = "z"; # zoxide smart-cd
+    };
+  };
+
+  programs.starship.enable = true; # nice prompt
+  programs.zoxide.enable = true;   # smart directory jumping (z)
+  programs.fzf.enable = true;      # fuzzy finder (Ctrl-R, Ctrl-T)
+  programs.yazi.enable = true;     # terminal file manager
+  programs.bat.enable = true;      # better `cat`
+
+  # ---------- Wallpaper folder ----------
+  # Creates standard XDG dirs (Pictures, Downloads, etc.). Drop wallpapers in
+  # ~/Pictures, then set one from Noctalia's settings panel (Super + comma).
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true;
   };
 }

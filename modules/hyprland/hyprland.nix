@@ -2,11 +2,10 @@
 {
   wayland.windowManager.hyprland = {
     enable = true;
-    package = null;        # Hyprland itself comes from the system (programs.hyprland)
+    package = null;       
     portalPackage = null;
     systemd.enable = true;
-    # Write the classic hyprland.conf format (not the new Lua default, which
-    # Hyprland doesn't read — that was leaving us with an empty default config).
+    # Write the classic hyprland.conf format 
     configType = "hyprlang";
 
     settings = {
@@ -191,10 +190,14 @@
       ];
 
       # Frost the Noctalia bar/panels (the glassmorphism touch).
-      layerrule = [
-        "blur, noctalia-.*"
-        "ignorealpha 0.5, noctalia-.*"
-      ];
+      # v0.54 structured layer-rule syntax (the old "blur, namespace" form is gone).
+      layerrule = {
+        name = "noctalia";
+        "match:namespace" = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd)$";
+        ignore_alpha = 0.5;
+        blur = true;
+        blur_popups = true;
+      };
     };
   };
 
