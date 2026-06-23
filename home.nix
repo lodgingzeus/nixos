@@ -11,6 +11,7 @@
 
   imports = [
     ./modules/hyprland/hyprland.nix
+    ./modules/noctalia/noctalia.nix
   ];
 
   home.packages = with pkgs; [
@@ -26,9 +27,9 @@
     # Font for the terminal/UI glyphs
     nerd-fonts.jetbrains-mono
 
-    # Hyprland "mandatory" helpers (the popup that complained):
-    hyprland-qtutils  # dialogs / version popups Hyprland expects
-    hyprpolkitagent   # authentication prompts (sudo-style dialogs)
+    
+    hyprland-qtutils 
+    hyprpolkitagent   
   ];
 
   # Glassy terminal — Hyprland's default terminal in the keybinds.
