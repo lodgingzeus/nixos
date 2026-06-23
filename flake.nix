@@ -13,7 +13,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Hyprland compositor — pinned to match Sree's config (its newer syntax).
+    # Hyprland compositor
     # Not following nixpkgs, so it uses Hyprland's own binary cache (no compile).
     hyprland.url = "github:hyprwm/Hyprland/v0.54.3-b";
 

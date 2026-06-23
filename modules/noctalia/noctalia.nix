@@ -12,6 +12,5 @@
     systemd.enable = false;
   };
 
-  # Noctalia manages its own writable config in ~/.config/noctalia, so you can
-  # theme it live from its settings panel (Super + comma in Hyprland).
+  # Noctalia manages its own writable config in ~/.config/noctalia
 }

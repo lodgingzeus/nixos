@@ -15,7 +15,6 @@
       "$fileManager" = "dolphin";
       "$menu" = "$ipc panel-toggle launcher";
 
-      
       monitor = [ ",preferred,auto,1" ];
 
       # Start the Noctalia shell + polkit agent (auth dialogs) on login.
@@ -39,7 +38,9 @@
         gaps_in = 3;
         gaps_out = 5;
         border_size = 1;
-        resize_on_border = false;
+        resize_on_border = true;
+        extend_border_grab_area = 20;
+        hover_icon_on_border = true;
         layout = "master";
       };
 
@@ -95,6 +96,7 @@
         new_status = "inherit";
         orientation = "center";
         slave_count_for_center_master = 0;
+        drop_at_cursor = true;
       };
 
       misc = {
@@ -107,7 +109,7 @@
         kb_layout = "us";
         follow_mouse = 1;
         sensitivity = 0;
-        touchpad.natural_scroll = false;
+        touchpad.natural_scroll = true;
       };
 
       gesture = "3, horizontal, workspace"; # 3-finger swipe between workspaces
@@ -121,6 +123,10 @@
         "$mainMod, M, exit"
         "$mainMod, E, exec, $fileManager"
         "$mainMod, V, togglefloating"
+        "$mainMod SHIFT, V, centerwindow"
+        "$mainMod, F, fullscreen, 0"
+        "$mainMod SHIFT, F, fullscreen, 1"
+        "$mainMod, T, pin"
         "$mainMod, R, exec, $menu"
         "$mainMod, P, pseudo"
         "$mainMod, Z, exec, $ipc panel-toggle control-center"
@@ -131,6 +137,16 @@
         "$mainMod, right, movefocus, r"
         "$mainMod, up,    movefocus, u"
         "$mainMod, down,  movefocus, d"
+
+        "$mainMod SHIFT, left,  movewindow, l"
+        "$mainMod SHIFT, right, movewindow, r"
+        "$mainMod SHIFT, up,    movewindow, u"
+        "$mainMod SHIFT, down,  movewindow, d"
+
+        "$mainMod CTRL, left,  resizeactive, -40 0"
+        "$mainMod CTRL, right, resizeactive, 40 0"
+        "$mainMod CTRL, up,    resizeactive, 0 -40"
+        "$mainMod CTRL, down,  resizeactive, 0 40"
 
         "$mainMod, 1, workspace, 1"
         "$mainMod, 2, workspace, 2"
@@ -159,6 +175,9 @@
 
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up,   workspace, e-1"
+
+        "$mainMod, minus, splitratio, -0.1"
+        "$mainMod, equal, splitratio, 0.1"
 
         "$mainMod, print,       exec, hyprshot -m window --clipboard-only"
         ", print,               exec, hyprshot -m output --clipboard-only"
@@ -190,7 +209,6 @@
       ];
 
       # Frost the Noctalia bar/panels (the glassmorphism touch).
-      # v0.54 structured layer-rule syntax (the old "blur, namespace" form is gone).
       layerrule = {
         name = "noctalia";
         "match:namespace" = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd)$";

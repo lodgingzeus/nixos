@@ -88,7 +88,6 @@
   programs.bash = {
     enable = true;
     shellAliases = {
-      # Keep your rebuild shortcuts available in Hyprland terminals too.
       nixos-flake = "sudo nixos-rebuild switch --flake /home/deepak/nixos#nixos";
       nixos-switch = "sudo nixos-rebuild switch --flake /home/deepak/nixos#nixos";
       cat = "bat";
@@ -103,8 +102,6 @@
   programs.bat.enable = true;      # better `cat`
 
   # ---------- Wallpaper folder ----------
-  # Creates standard XDG dirs (Pictures, Downloads, etc.). Drop wallpapers in
-  # ~/Pictures, then set one from Noctalia's settings panel (Super + comma).
   xdg.userDirs = {
     enable = true;
     createDirectories = true;
