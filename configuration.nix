@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   imports =
@@ -33,6 +33,26 @@
  
   #flakes and experimental features
   nix.settings.experimental-features = ["nix-command" "flakes" ];
+
+  # Binary caches for Hyprland + Noctalia/Quickshell (skips compiling from source).
+  nix.settings.extra-substituters = [
+    "https://hyprland.cachix.org"
+    "https://noctalia.cachix.org"
+  ];
+  nix.settings.extra-trusted-public-keys = [
+    "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+  ];
+
+  # Hyprland: tiling Wayland compositor (flake package matches Sree's config).
+  programs.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    xwayland.enable = true;
+  };
+  # Helpful for the shell's widgets (bluetooth/battery toggles).
+  hardware.bluetooth.enable = true;
+  services.upower.enable = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_IN";
@@ -166,6 +186,13 @@
 
    #vnc
 	tigervnc
+
+    # App launcher (Spotlight/Alfred-style)
+    albert
+
+    # Hyprland desktop: shell + a terminal (Hyprland's default keybind uses kitty)
+    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+    kitty
   ];
 
 
