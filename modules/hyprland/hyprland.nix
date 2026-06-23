@@ -37,9 +37,9 @@
       general = {
         gaps_in = 3;
         gaps_out = 5;
-        border_size = 1;
+        border_size = 2;
         resize_on_border = true;
-        extend_border_grab_area = 20;
+        extend_border_grab_area = 35;
         hover_icon_on_border = true;
         layout = "master";
       };
@@ -109,7 +109,7 @@
         kb_layout = "us";
         follow_mouse = 1;
         sensitivity = 0;
-        touchpad.natural_scroll = true;
+        touchpad.natural_scroll = false;
       };
 
       gesture = "3, horizontal, workspace"; # 3-finger swipe between workspaces
