@@ -185,6 +185,7 @@
     git
     nodejs_22
     python3  
+    sshfs
 
    #vnc
 	tigervnc
@@ -197,6 +198,8 @@
     kitty
   ];
 
+
+   programs.fuse.userAllowOther = true;
 
    programs.nix-ld.enable = true;
    programs.nix-ld.libraries = with pkgs; [
