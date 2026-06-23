@@ -5,6 +5,9 @@
     package = null;        # Hyprland itself comes from the system (programs.hyprland)
     portalPackage = null;
     systemd.enable = true;
+    # Write the classic hyprland.conf format (not the new Lua default, which
+    # Hyprland doesn't read — that was leaving us with an empty default config).
+    configType = "hyprlang";
 
     settings = {
       "$ipc" = "noctalia msg";
@@ -13,11 +16,14 @@
       "$fileManager" = "dolphin";
       "$menu" = "$ipc panel-toggle launcher";
 
-      # Auto-detect the laptop panel (eDP-1). No hardcoded monitor like Sree's.
+      
       monitor = [ ",preferred,auto,1" ];
 
-      # Start the Noctalia shell (bar/launcher/notifications) on login.
-      exec-once = [ "noctalia" ];
+      # Start the Noctalia shell + polkit agent (auth dialogs) on login.
+      exec-once = [
+        "noctalia"
+        "systemctl --user start hyprpolkitagent"
+      ];
 
       env = [
         "XCURSOR_SIZE,24"

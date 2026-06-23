@@ -44,7 +44,7 @@
     "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
   ];
 
-  # Hyprland: tiling Wayland compositor (flake package matches Sree's config).
+  # Hyprland: tiling Wayland compositor.
   programs.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
@@ -115,6 +115,8 @@
   #   Integrated = dGPU fully OFF (best battery)   Hybrid = offload (default)
   services.asusd.enable = true;
   services.supergfxd.enable = true;
+  # asusd's sandboxed service expects /etc/asusd to exist, or it fails to start.
+  systemd.tmpfiles.rules = [ "d /etc/asusd 0755 root root - -" ];
 
   # Enable CUPS to print documents.
   services.printing.enable = true;

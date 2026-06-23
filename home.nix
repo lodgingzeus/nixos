@@ -25,6 +25,10 @@
 
     # Font for the terminal/UI glyphs
     nerd-fonts.jetbrains-mono
+
+    # Hyprland "mandatory" helpers (the popup that complained):
+    hyprland-qtutils  # dialogs / version popups Hyprland expects
+    hyprpolkitagent   # authentication prompts (sudo-style dialogs)
   ];
 
   # Glassy terminal — Hyprland's default terminal in the keybinds.
