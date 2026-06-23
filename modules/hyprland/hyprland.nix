@@ -38,28 +38,30 @@
         gaps_in = 3;
         gaps_out = 5;
         border_size = 2;
+        "col.active_border" = "rgba(b8d7ffee) rgba(d7b8ffee) 45deg";
+        "col.inactive_border" = "rgba(ffffff22)";
         resize_on_border = true;
         extend_border_grab_area = 35;
         hover_icon_on_border = true;
-        layout = "master";
+        layout = "dwindle";
       };
 
       decoration = {
-        rounding = 5;
+        rounding = 11;
         rounding_power = 2;
-        active_opacity = 1.0;
-        inactive_opacity = 1.0;
+        active_opacity = 0.94;
+        inactive_opacity = 0.86;
         shadow = {
           enabled = true;
-          range = 4;
+          range = 18;
           render_power = 3;
-          color = "rgba(1a1a1aee)";
+          color = "rgba(05070acc)";
         };
         blur = {
           enabled = true;
-          size = 3;
-          passes = 2;
-          vibrancy = 0.1696;
+          size = 8;
+          passes = 3;
+          vibrancy = 0.28;
         };
       };
 
@@ -212,7 +214,7 @@
       layerrule = {
         name = "noctalia";
         "match:namespace" = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd)$";
-        ignore_alpha = 0.5;
+        ignore_alpha = 0.35;
         blur = true;
         blur_popups = true;
       };
