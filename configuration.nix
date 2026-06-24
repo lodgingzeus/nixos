@@ -51,6 +51,8 @@
     xwayland.enable = true;
   };
 
+  security.wrappers.Hyprland.enable = lib.mkForce false;
+
   xdg.portal.config.hyprland = {
     default = [
       "hyprland"

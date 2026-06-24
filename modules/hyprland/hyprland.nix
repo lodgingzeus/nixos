@@ -24,6 +24,10 @@
       ];
 
       env = [
+        "XDG_CURRENT_DESKTOP,Hyprland"
+        "XDG_SESSION_DESKTOP,Hyprland"
+        "XDG_SESSION_TYPE,wayland"
+        "GTK_USE_PORTAL,1"
         "XCURSOR_SIZE,24"
         "HYPRCURSOR_SIZE,24"
         # NVIDIA on Wayland (your panel is wired to the NVIDIA GPU).
