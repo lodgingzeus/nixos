@@ -39,11 +39,13 @@
       ];
 
       general = {
-        gaps_in = 3;
-        gaps_out = 5;
-        border_size = 2;
-        "col.active_border" = "rgba(b8d7ffee) rgba(d7b8ffee) 45deg";
-        "col.inactive_border" = "rgba(ffffff22)";
+        # Compact spacing and a quiet pastel edge keep the desktop airy
+        # without wasting much of the laptop display.
+        gaps_in = 4;
+        gaps_out = 7;
+        border_size = 1;
+        "col.active_border" = "rgba(9ccfd8ee) rgba(c4a7e7ee) 45deg";
+        "col.inactive_border" = "rgba(ffffff18)";
         resize_on_border = true;
         extend_border_grab_area = 35;
         hover_icon_on_border = true;
@@ -51,50 +53,74 @@
       };
 
       decoration = {
-        rounding = 11;
-        rounding_power = 2;
-        active_opacity = 0.85;
-        inactive_opacity = 0.65;
+        # Soft Material-like windows: readable first, glassy second.
+        rounding = 17;
+        rounding_power = 2.5;
+        active_opacity = 0.96;
+        inactive_opacity = 0.88;
+        fullscreen_opacity = 1.0;
+        dim_inactive = true;
+        dim_strength = 0.04;
         shadow = {
           enabled = true;
-          range = 18;
-          render_power = 3;
-          color = "rgba(05070acc)";
+          range = 20;
+          render_power = 4;
+          color = "rgba(05070a99)";
         };
         blur = {
           enabled = true;
-          size = 8;
+          size = 9;
           passes = 3;
-          vibrancy = 0.28;
+          brightness = 1.0;
+          contrast = 0.9;
+          noise = 0.015;
+          vibrancy = 0.35;
         };
       };
 
       animations = {
         enabled = true;
+        # Smooth and responsive rather than bouncy: workspace changes glide,
+        # windows settle softly, and shell panels get out of the way quickly.
         bezier = [
-          "easeOutQuint,   0.23, 1,    0.32, 1"
-          "easeInOutCubic, 0.65, 0.05, 0.36, 1"
-          "linear,         0,    0,    1,    1"
-          "almostLinear,   0.5,  0.5,  0.75, 1"
-          "quick,          0.15, 0,    0.1,  1"
+          "easeOutQuint, 0.23, 1,    0.32, 1"
+          "easeOutExpo,  0.16, 1,    0.30, 1"
+          "easeInOut,    0.65, 0.05, 0.36, 1"
+          "softPop,      0.20, 0.90, 0.20, 1.05"
+          "quick,        0.15, 0,    0.10, 1"
+          "linear,       0,    0,    1,    1"
         ];
         animation = [
-          "global,        1, 10,   default"
-          "border,        1, 5.39, easeOutQuint"
-          "windows,       1, 4.79, easeOutQuint"
-          "windowsIn,     1, 4.1,  easeOutQuint, popin 87%"
-          "windowsOut,    1, 1.49, linear,       popin 87%"
-          "fadeIn,        1, 1.73, almostLinear"
-          "fadeOut,       1, 1.46, almostLinear"
-          "fade,          1, 3.03, quick"
-          "layers,        1, 3.81, easeOutQuint"
-          "layersIn,      1, 4,    easeOutQuint, fade"
-          "layersOut,     1, 1.5,  linear,       fade"
-          "fadeLayersIn,  1, 1.79, almostLinear"
-          "fadeLayersOut, 1, 1.39, almostLinear"
-          "workspaces,    1, 1.94, almostLinear, fade"
-          "workspacesIn,  1, 1.21, almostLinear, fade"
-          "workspacesOut, 1, 1.94, almostLinear, fade"
+          "global,        1, 10,  default"
+
+          # Windows open with a subtle scale-up and close more quickly.
+          "windows,       1, 4.5, easeOutExpo"
+          "windowsIn,     1, 4.2, softPop,     popin 92%"
+          "windowsOut,    1, 2.2, quick,       popin 96%"
+          "windowsMove,   1, 4.0, easeOutQuint"
+          "fadeIn,        1, 3.0, easeOutExpo"
+          "fadeOut,       1, 2.0, quick"
+          "fade,          1, 3.0, easeInOut"
+
+          # Borders follow focus without drawing attention to themselves.
+          "border,        1, 5.0, easeOutQuint"
+          "borderangle,   1, 8.0, easeInOut"
+
+          # Noctalia panels and notifications feel light and immediate.
+          "layers,        1, 3.5, easeOutExpo"
+          "layersIn,      1, 3.8, easeOutExpo, fade"
+          "layersOut,     1, 2.2, quick,       fade"
+          "fadeLayersIn,  1, 3.0, easeOutExpo"
+          "fadeLayersOut, 1, 2.0, quick"
+
+          # A directional slide makes workspace navigation easy to follow.
+          "workspaces,    1, 4.5, easeOutExpo, slide"
+          "workspacesIn,  1, 4.5, easeOutExpo, slide"
+          "workspacesOut, 1, 4.0, easeOutExpo, slide"
+
+          # Keep the special workspace distinct but restrained.
+          "specialWorkspaceIn,  1, 4.0, softPop, slidevert"
+          "specialWorkspaceOut, 1, 3.0, quick,   slidevert"
         ];
       };
 
@@ -107,7 +133,7 @@
 
       misc = {
         force_default_wallpaper = -1;
-        disable_hyprland_logo = false;
+        disable_hyprland_logo = true;
         vrr = 0; # laptop panel — no variable refresh
       };
 
@@ -218,7 +244,7 @@
       layerrule = {
         name = "noctalia";
         "match:namespace" = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd)$";
-        ignore_alpha = 0.35;
+        ignore_alpha = 0.25;
         blur = true;
         blur_popups = true;
       };
