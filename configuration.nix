@@ -54,14 +54,10 @@
   xdg.portal.config.hyprland = {
     default = [
       "hyprland"
-      "kde"
       "gtk"
     ];
-    "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
-    "org.freedesktop.impl.portal.Settings" = [
-      "kde"
-      "gtk"
-    ];
+    "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+    "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
   };
   # Helpful for the shell's widgets (bluetooth/battery toggles).
   hardware.bluetooth.enable = true;
