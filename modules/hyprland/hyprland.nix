@@ -15,7 +15,7 @@
       "$fileManager" = "dolphin";
       "$menu" = "$ipc panel-toggle launcher";
 
-      monitor = [ "eDP-1,preferred,auto,1.25" ];
+      monitor = [ "eDP-1,preferred,auto,1.33" ];
 
       # Start the Noctalia shell + polkit agent (auth dialogs) on login.
       exec-once = [
