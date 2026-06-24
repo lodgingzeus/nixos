@@ -53,8 +53,8 @@
       decoration = {
         rounding = 11;
         rounding_power = 2;
-        active_opacity = 0.94;
-        inactive_opacity = 0.86;
+        active_opacity = 0.85;
+        inactive_opacity = 0.65;
         shadow = {
           enabled = true;
           range = 18;
