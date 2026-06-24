@@ -50,6 +50,19 @@
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     xwayland.enable = true;
   };
+
+  xdg.portal.config.hyprland = {
+    default = [
+      "hyprland"
+      "kde"
+      "gtk"
+    ];
+    "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
+    "org.freedesktop.impl.portal.Settings" = [
+      "kde"
+      "gtk"
+    ];
+  };
   # Helpful for the shell's widgets (bluetooth/battery toggles).
   hardware.bluetooth.enable = true;
   services.upower.enable = true;
