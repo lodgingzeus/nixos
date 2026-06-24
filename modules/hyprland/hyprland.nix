@@ -208,8 +208,8 @@
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up,   workspace, e-1"
 
-        "$mainMod, minus, splitratio, -0.1"
-        "$mainMod, equal, splitratio, 0.1"
+        "$mainMod, minus, layoutmsg, splitratio -0.1"
+        "$mainMod, equal, layoutmsg, splitratio 0.1"
 
         "$mainMod, print,       exec, hyprshot -m window --clipboard-only"
         ", print,               exec, hyprshot -m output --clipboard-only"

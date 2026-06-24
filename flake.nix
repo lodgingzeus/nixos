@@ -15,7 +15,7 @@
 
     # Hyprland compositor
     # Not following nixpkgs, so it uses Hyprland's own binary cache (no compile).
-    hyprland.url = "github:hyprwm/Hyprland/v0.54.3-b";
+    hyprland.url = "github:hyprwm/Hyprland/v0.55.4";
 
     # Noctalia: Wayland desktop shell (bar/launcher/notifications) for Hyprland.
     noctalia = {
