@@ -203,7 +203,9 @@
     # Development Tools
     git
     nodejs_22
-    python3  
+    (python3.withPackages (pythonPackages: with pythonPackages; [
+      pip
+    ]))
     sshfs
 
    #vnc
