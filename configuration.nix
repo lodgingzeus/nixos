@@ -180,53 +180,6 @@
     autoPrune.enable = true;
   };
 
-  # Hermes Agent runs continuously in a persistent Ubuntu container. The
-  # container gives the agent a writable environment for apt, pip, and npm,
-  # while its files, sessions, memories, and credentials survive restarts.
-  services.hermes-agent = {
-    enable = true;
-    # Hermes intentionally stores cron/auth state as owner-only. Run the
-    # single-user service as Deepak so the host CLI can read that shared state.
-    user = "deepak";
-    createUser = false;
-    addToSystemPackages = true;
-    extraDependencyGroups = [ "messaging" ];
-
-    container = {
-      enable = true;
-      backend = "docker";
-      # Share Hermes state with the host CLI and permit Deepak to access it.
-      hostUsers = [ "deepak" ];
-      # Also forces recreation of the container that was originally created
-      # under the old hermes service UID, fixing shared desktop state ownership.
-      extraOptions = [ "--label=hermes.owner=deepak" ];
-    };
-
-    settings = {
-      # Use Codex through the ChatGPT subscription OAuth device-code flow.
-      # Authenticate after activation with: hermes auth add openai-codex
-      model = {
-        provider = "openai-codex";
-        default = "gpt-5.4";
-      };
-      toolsets = [ "all" ];
-      terminal = {
-        backend = "local";
-        cwd = "/data/workspace";
-        timeout = 180;
-      };
-      memory = {
-        memory_enabled = true;
-        user_profile_enabled = true;
-      };
-    };
-
-    # Create this root-owned file before rebuilding. ChatGPT authentication is
-    # stored separately via OAuth; this file holds messaging and optional tool
-    # credentials such as Telegram tokens.
-    environmentFiles = [ "/var/lib/hermes/env" ];
-  };
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [

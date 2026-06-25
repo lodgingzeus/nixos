@@ -23,8 +23,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Hermes Agent: packaged CLI plus its native NixOS service module.
-    hermes-agent.url = "github:NousResearch/hermes-agent";
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
@@ -33,7 +31,6 @@
       system = "x86_64-linux";
       specialArgs = { inherit inputs; }; # makes flake inputs available in configuration.nix
       modules = [
-        inputs.hermes-agent.nixosModules.default
         ./configuration.nix
 
         # Home Manager as a NixOS module — builds your home alongside the system.
