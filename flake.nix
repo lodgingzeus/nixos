@@ -37,7 +37,9 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.backupFileExtension = "backup"; # back up clashing dotfiles
+          # Use a Home Manager-specific suffix so pre-existing .backup files
+          # do not block activation.
+          home-manager.backupFileExtension = "hm-backup";
           home-manager.extraSpecialArgs = { inherit inputs; };
           home-manager.users.deepak = import ./home.nix;
         }
