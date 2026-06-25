@@ -91,6 +91,11 @@
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
+  # Keep browser credentials encrypted and available in Hyprland sessions.
+  # SDDM unlocks the login keyring with the user's login password.
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
+
   # Phone-desktop integration: notifications, file sharing, clipboard, and media controls.
   programs.kdeconnect.enable = true;
 
