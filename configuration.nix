@@ -209,8 +209,10 @@
     uv
     sshfs
 
-   #vnc
-	tigervnc
+    #spotify
+    spotify
+    #vnc
+    tigervnc
 
     # App launcher (Spotlight/Alfred-style)
     albert
