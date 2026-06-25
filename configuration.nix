@@ -197,6 +197,9 @@
       backend = "docker";
       # Share Hermes state with the host CLI and permit Deepak to access it.
       hostUsers = [ "deepak" ];
+      # Also forces recreation of the container that was originally created
+      # under the old hermes service UID, fixing shared desktop state ownership.
+      extraOptions = [ "--label=hermes.owner=deepak" ];
     };
 
     settings = {
