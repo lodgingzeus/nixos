@@ -206,6 +206,7 @@
     (python3.withPackages (pythonPackages: with pythonPackages; [
       pip
     ]))
+    uv
     sshfs
 
    #vnc
