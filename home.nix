@@ -86,6 +86,11 @@
   };
 
   # ---------- Shell / terminal niceties ----------
+  # Commands installed for this user by tools such as `uv tool install`.
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
+
   programs.bash = {
     enable = true;
     shellAliases = {
