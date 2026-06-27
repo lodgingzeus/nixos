@@ -181,53 +181,6 @@
     autoPrune.enable = true;
   };
 
-  # Hermes Agent runs natively (no container) as a single-user systemd service.
-  # The container backend was dropped: it ran the gateway under a separate UID
-  # that could not write its Telegram gateway-lock, leaving Telegram stuck in
-  # "retrying" / "not connected" despite a valid token. Native mode runs as
-  # Deepak, so the CLI, GUI, and gateway all share one set of state under
-  # /var/lib/hermes with consistent ownership.
-  services.hermes-agent = {
-    enable = true;
-    user = "deepak";
-    # Own state as deepak's primary group (gid 100) rather than a phantom
-    # "hermes" group. With createUser = false the module never creates a
-    # "hermes" group, so leaving group at its "hermes" default makes the
-    # activation chown and the unit's Group= fail (status=216/GROUP).
-    group = "users";
-    createUser = false;
-    addToSystemPackages = true;
-    # Bundle the messaging extras into the Nix closure. Without this, Hermes
-    # tries to pip-install python-telegram-bot at runtime, which fails on the
-    # read-only /nix/store and silently disables the Telegram platform.
-    extraDependencyGroups = [ "messaging" ];
-
-    settings = {
-      # Codex via the ChatGPT subscription OAuth flow. The existing login in
-      # auth.json is preserved across this reinstall, so no re-auth is needed.
-      model = {
-        provider = "openai-codex";
-        default = "gpt-5.4";
-      };
-      toolsets = [ "all" ];
-      terminal = {
-        backend = "local";
-        cwd = "/var/lib/hermes/workspace";
-        timeout = 180;
-      };
-      memory = {
-        memory_enabled = true;
-        user_profile_enabled = true;
-      };
-    };
-
-    # Root-owned 0600 file holding messaging credentials (Telegram bot token and
-    # allowed user IDs). Merged into $HERMES_HOME/.env at activation; Hermes
-    # reads it on startup. In managed/NixOS mode the GUI cannot persist these —
-    # set them here, not in the desktop app.
-    environmentFiles = [ "/var/lib/hermes/env" ];
-  };
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
