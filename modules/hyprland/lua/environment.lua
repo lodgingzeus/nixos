@@ -2,6 +2,9 @@ hl.monitor({
     output = "eDP-1",
     mode = "2560x1440@165",
     position = "auto",
+    -- Fractional scale 1.33 keeps a comfortable UI size with usable screen
+    -- space. Native-Wayland apps stay sharp; XWayland apps would blur, so
+    -- force_zero_scaling (below) + a per-app device-scale handles those.
     scale = 1.33,
 })
 
@@ -27,3 +30,12 @@ local environment = {
 for name, value in pairs(environment) do
     hl.env(name, value)
 end
+
+-- Stop Hyprland from bitmap-upscaling XWayland apps at the fractional 1.33
+-- scale (which makes them blurry, e.g. Spotify). With zero-scaling the app
+-- renders at native pixels; apps that need it pass their own scale factor.
+hl.config({
+    xwayland = {
+        force_zero_scaling = true,
+    },
+})

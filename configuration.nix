@@ -60,6 +60,7 @@
     ];
     "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
     "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
+    "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
   };
   # Helpful for the shell's widgets (bluetooth/battery toggles).
   hardware.bluetooth.enable = true;
@@ -183,6 +184,7 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "antigravity"
     "claude"
     "nvidia-x11"
     "nvidia-settings"
@@ -198,6 +200,9 @@
 
     # Text Editor / IDE
     vscode
+    ((antigravity.override {
+      commandLineArgs = "--disable-gpu-sandbox";
+    }).fhs)
     
     claude-code
     # Development Tools
@@ -210,7 +215,19 @@
     sshfs
 
     #spotify
-    spotify
+    # Spotify's bundled CEF/Chromium can't init native Wayland here and falls
+    # back to XWayland, where it would blur at the fractional 1.33 scale. With
+    # Hyprland's force_zero_scaling, tell Spotify to render its UI at the monitor
+    # scale itself so it draws crisp at native pixels instead of being upscaled.
+    (symlinkJoin {
+      name = "spotify-hidpi";
+      paths = [ spotify ];
+      nativeBuildInputs = [ makeBinaryWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/spotify \
+          --add-flags "--force-device-scale-factor=1.33"
+      '';
+    })
     #vnc
     tigervnc
 
