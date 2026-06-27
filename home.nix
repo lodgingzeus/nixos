@@ -17,6 +17,9 @@
   home.packages = with pkgs; [
     fastfetch
 
+    # Hermes Agent desktop GUI (chat client for the local hermes-agent service).
+    inputs.hermes-agent.packages.${pkgs.stdenv.hostPlatform.system}.desktop
+
     # Tools the Hyprland keybinds call:
     hyprshot       # screenshots (Print keys)
     brightnessctl  # brightness keys
@@ -35,6 +38,16 @@
     nwg-look            # GUI to tweak GTK theme/font/cursor under Wayland
     qt6Packages.qt6ct   # Qt app theming control panel
   ];
+
+  # Launcher entry for the Hermes desktop GUI.
+  xdg.desktopEntries.hermes-desktop = {
+    name = "Hermes Desktop";
+    genericName = "AI Agent";
+    comment = "Chat with the local Hermes Agent";
+    exec = "hermes-desktop";
+    terminal = false;
+    categories = [ "Utility" "Development" ];
+  };
 
   # Glassy terminal — Hyprland's default terminal in the keybinds.
   programs.kitty = {
