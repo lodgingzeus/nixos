@@ -1,5 +1,9 @@
 hl.monitor({
-    output = "eDP-1",
+    -- Empty output = applies to the internal panel regardless of connector
+    -- name. The ASUS MUX renames it (eDP-1 in dGPU mode, eDP-2 in Hybrid),
+    -- so hardcoding a name leaves the rule unmatched and the scale falls
+    -- back to auto (1.6), making everything oversized after a mode switch.
+    output = "",
     mode = "2560x1440@165",
     position = "auto",
     -- Fractional scale 1.33 keeps a comfortable UI size with usable screen
