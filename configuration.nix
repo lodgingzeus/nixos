@@ -121,9 +121,14 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;
-    # Power off the dGPU when idle; wake it only for offloaded apps.
+    # dGPU power management. finegrained=true drops the dGPU to D3cold (fully
+    # off) when idle — but the external HDMI port is wired through the dGPU, so
+    # D3cold makes that port electrically dead (monitor shows standby, kernel
+    # sees no connector). With finegrained=false the dGPU stays enumerable so
+    # the HDMI output works, at a small idle-battery cost. If the external is
+    # still not detected after rebuild+relog+replug, set enable=false too.
     powerManagement.enable = true;
-    powerManagement.finegrained = true;
+    powerManagement.finegrained = false;
     # Open kernel modules: recommended for Ampere (RTX 30) and newer.
     open = true;
     nvidiaSettings = true;
@@ -260,6 +265,12 @@
     kitty
   ];
 
+
+   # Make Electron/Chromium apps (Chrome, VSCode, Spotify, Antigravity) render
+   # natively on Wayland instead of XWayland. Also set inside Hyprland's Lua
+   # env; setting it here too guarantees it for processes spawned outside the
+   # Hyprland exec chain (e.g. systemd user services).
+   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
    programs.fuse.userAllowOther = true;
 

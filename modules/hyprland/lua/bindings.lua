@@ -35,6 +35,13 @@ for key, direction in pairs(directions) do
     hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ direction = direction }))
 end
 
+-- Multi-monitor: throw the focused window to the monitor in that direction.
+-- The external sits to the RIGHT of the internal panel, so Super+Alt+Right
+-- sends the active window to the external, Super+Alt+Left brings it back.
+-- (Only left/right are wired since the monitors are arranged horizontally.)
+hl.bind(mainMod .. " + ALT + left", hl.dsp.window.move({ monitor = "l" }))
+hl.bind(mainMod .. " + ALT + right", hl.dsp.window.move({ monitor = "r" }))
+
 local resizeSteps = {
     left = { x = -40, y = 0 },
     right = { x = 40, y = 0 },
