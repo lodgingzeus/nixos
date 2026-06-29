@@ -31,6 +31,13 @@
     hyprland-qtutils
     hyprpolkitagent
 
+    # Image viewing/editing
+    loupe          # fast GTK image viewer (view, crop, rotate)
+    pinta          # lightweight Paint.NET-style image editor
+
+    # Documents / spreadsheets
+    libreoffice-fresh  # docx / xlsx / csv / odt etc.
+
     # Theming helpers
     nwg-look            # GUI to tweak GTK theme/font/cursor under Wayland
     qt6Packages.qt6ct   # Qt app theming control panel
@@ -111,5 +118,31 @@
   xdg.userDirs = {
     enable = true;
     createDirectories = true;
+  };
+
+  # ---------- Default apps for files (double-click / "Open with") ----------
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      # Images -> Loupe viewer
+      "image/png"  = "org.gnome.Loupe.desktop";
+      "image/jpeg" = "org.gnome.Loupe.desktop";
+      "image/gif"  = "org.gnome.Loupe.desktop";
+      "image/webp" = "org.gnome.Loupe.desktop";
+      "image/bmp"  = "org.gnome.Loupe.desktop";
+      "image/tiff" = "org.gnome.Loupe.desktop";
+      "image/svg+xml" = "org.gnome.Loupe.desktop";
+
+      # Word documents -> LibreOffice Writer
+      "application/msword" = "writer.desktop";
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = "writer.desktop";
+      "application/vnd.oasis.opendocument.text" = "writer.desktop";
+
+      # Spreadsheets / CSV -> LibreOffice Calc
+      "application/vnd.ms-excel" = "calc.desktop";
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = "calc.desktop";
+      "application/vnd.oasis.opendocument.spreadsheet" = "calc.desktop";
+      "text/csv" = "calc.desktop";
+    };
   };
 }
