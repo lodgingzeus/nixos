@@ -123,6 +123,19 @@
   # ---------- Default apps for files (double-click / "Open with") ----------
   xdg.mimeApps = {
     enable = true;
+    # KDE/Dolphin needs the handler under [Added Associations] too, not only
+    # [Default Applications]; without it KDE may still show the "open with"
+    # picker on double-click even though the default is set. GNOME apps only
+    # need defaultApplications, so this is the Dolphin-specific piece.
+    associations.added = {
+      "image/png"  = "org.gnome.Loupe.desktop";
+      "image/jpeg" = "org.gnome.Loupe.desktop";
+      "image/gif"  = "org.gnome.Loupe.desktop";
+      "image/webp" = "org.gnome.Loupe.desktop";
+      "image/bmp"  = "org.gnome.Loupe.desktop";
+      "image/tiff" = "org.gnome.Loupe.desktop";
+      "image/svg+xml" = "org.gnome.Loupe.desktop";
+    };
     defaultApplications = {
       # Images -> Loupe viewer
       "image/png"  = "org.gnome.Loupe.desktop";

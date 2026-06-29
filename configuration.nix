@@ -272,6 +272,12 @@
    # Hyprland exec chain (e.g. systemd user services).
    environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+   # Override the XDG applications menu with a minimal one so KDE/Dolphin
+   # resolves the configured default handler (Loupe for images) instead of
+   # popping the "open with" picker on double-click under the Hyprland
+   # (non-Plasma) session. See modules/dolphin.menu for the why.
+   environment.etc."xdg/menus/applications.menu".source = ./modules/dolphin.menu;
+
    programs.fuse.userAllowOther = true;
 
    programs.nix-ld.enable = true;

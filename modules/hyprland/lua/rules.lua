@@ -49,6 +49,17 @@ hl.window_rule({
     size = { "(monitor_w*0.45)", "(monitor_h*0.50)" },
 })
 
+-- Loupe image viewer pops out as a centered floating window.
+hl.window_rule({
+    name = "image-viewer-float",
+    match = {
+        class = "^(org.gnome.Loupe)$",
+    },
+    float = true,
+    center = true,
+    size = { "(monitor_w*0.60)", "(monitor_h*0.70)" },
+})
+
 -- Avoid focusing invisible helper windows created by some XWayland apps.
 hl.window_rule({
     name = "fix-xwayland-drag-helpers",
