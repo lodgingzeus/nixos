@@ -18,7 +18,8 @@
   # backlight interface (amdgpu_bl0) instead of the non-working acpi_video0.
   boot.kernelParams = [ "acpi_backlight=native" ];
   networking.hostName = "nixos"; # Define your hostname.
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # WiFi is handled by NetworkManager (below). Do NOT also enable
+  # networking.wireless (wpa_supplicant) — the two conflict over the radio.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -33,6 +34,15 @@
  
   #flakes and experimental features
   nix.settings.experimental-features = ["nix-command" "flakes" ];
+
+  # Keep the Nix store from growing forever: weekly GC of generations older
+  # than 2 weeks, plus automatic deduplication of identical store files.
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+  nix.settings.auto-optimise-store = true;
 
   # Binary caches for Hyprland + Noctalia/Quickshell (skips compiling from source).
   nix.settings.extra-substituters = [
@@ -141,6 +151,10 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  # Firmware updates for laptop/SSD/peripherals: `fwupdmgr refresh` then
+  # `fwupdmgr update`.
+  services.fwupd.enable = true;
+
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -205,6 +219,13 @@
     }).fhs)
     
     claude-code
+    # Modern CLI tools (companions to starship/zoxide/fzf/yazi/bat)
+    ripgrep   # fast grep (rg)
+    fd        # fast, friendly `find`
+    eza       # modern `ls` with icons/git
+    btop      # pretty resource monitor
+    tldr      # concise command examples
+
     # Development Tools
     git
     nodejs_22
