@@ -158,4 +158,36 @@
       "text/csv" = "calc.desktop";
     };
   };
+
+  # ---------- Clipboard history ----------
+  # cliphist only HAS a history if something records into it. These two user
+  # services run wl-paste watchers for the whole graphical session — one for
+  # text, one for images — appending every copy to cliphist's db. Noctalia's
+  # clipboard panel (Super+Shift+C) reads from that same db, so old items stay
+  # available to paste long after the source app closed.
+  systemd.user.services.cliphist = {
+    Unit = {
+      Description = "Clipboard history (text) via cliphist";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+    Service = {
+      ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store";
+      Restart = "on-failure";
+    };
+  };
+
+  systemd.user.services.cliphist-images = {
+    Unit = {
+      Description = "Clipboard history (images) via cliphist";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+    Service = {
+      ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store";
+      Restart = "on-failure";
+    };
+  };
 }
