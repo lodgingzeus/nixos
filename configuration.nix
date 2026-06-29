@@ -91,12 +91,9 @@
     LC_TIME = "en_IN";
   };
 
-  # Enable the X11 windowing system.
+  # Enable the X11 windowing system (kept for XWayland and X11 apps).
   # You can disable this if you're only using the Wayland session.
-  services.xserver = {
-    enable = true;
-    desktopManager.xfce.enable = true;
-  };
+  services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
