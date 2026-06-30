@@ -1,6 +1,8 @@
 local mainMod = "SUPER"
 local terminal = "kitty"
 local fileManager = "dolphin"
+local browser = "google-chrome-stable"
+local editor = "code"
 local ipc = "noctalia msg"
 local menu = ipc .. " panel-toggle launcher"
 
@@ -12,6 +14,8 @@ command(mainMod .. " + Q", terminal)
 hl.bind(mainMod .. " + C", hl.dsp.window.close())
 hl.bind(mainMod .. " + M", hl.dsp.exit())
 command(mainMod .. " + E", fileManager)
+command(mainMod .. " + B", browser)
+command(mainMod .. " + D", editor)
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + SHIFT + V", hl.dsp.window.center())
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))

@@ -101,7 +101,6 @@
   programs.bash = {
     enable = true;
     shellAliases = {
-      nixos-flake = "sudo nixos-rebuild switch --flake /home/deepak/nixos#nixos";
       nixos-switch = "sudo nixos-rebuild switch --flake /home/deepak/nixos#nixos";
       cat = "bat";
       cd = "z"; # zoxide smart-cd

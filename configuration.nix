@@ -254,8 +254,8 @@
     #vnc
     tigervnc
 
-    # App launcher (Spotlight/Alfred-style)
-    albert
+    # Audio control panel. Floats centered via Hyprland window rules.
+    pavucontrol
 
     # Hyprland desktop: shell + a terminal (Hyprland's default keybind uses kitty)
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
@@ -267,7 +267,11 @@
    # natively on Wayland instead of XWayland. Also set inside Hyprland's Lua
    # env; setting it here too guarantees it for processes spawned outside the
    # Hyprland exec chain (e.g. systemd user services).
-   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+   environment.sessionVariables = {
+     NIXOS_OZONE_WL = "1";
+     NH_FLAKE = "/home/deepak/nixos";
+     NH_OS_FLAKE = "/home/deepak/nixos";
+   };
 
    # Override the XDG applications menu with a minimal one so KDE/Dolphin
    # resolves the configured default handler (Loupe for images) instead of
@@ -320,7 +324,6 @@
   #env switch
   environment.shellAliases = {
     nixos-switch = "sudo nixos-rebuild switch --flake /home/deepak/nixos#nixos";
-    nixos-flake = "sudo nixos-rebuild switch --flake /home/deepak/nixos#nixos";
 
     # Portainer: Docker GUI at http://localhost:9000 (runs only when started).
     # First run creates the container; later runs just start the existing one.
