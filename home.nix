@@ -104,6 +104,7 @@
       nixos-switch = "sudo nixos-rebuild switch --flake /home/deepak/nixos#nixos";
       cat = "bat";
       cd = "z"; # zoxide smart-cd
+      mount-rsks = "sshfs staging-0248-rsksindiablog.wordpress.com@sftp.wp.com:. ~/mnt/wordpress";
     };
   };
 

@@ -22,6 +22,7 @@ hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized", action
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 hl.bind(mainMod .. " + T", hl.dsp.window.pin())
 command(mainMod .. " + R", menu)
+command(mainMod .. " + L", "pidof hyprlock || hyprlock")
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 command(mainMod .. " + Z", ipc .. " panel-toggle control-center")
 command(mainMod .. " + comma", ipc .. " settings-toggle")

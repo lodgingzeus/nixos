@@ -142,7 +142,7 @@
         {
           monitor = "";
           size = "280, 46";
-          position = "0, -26";
+          position = "0, -14";
           halign = "center";
           valign = "center";
           dots_center = true;
