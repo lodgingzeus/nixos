@@ -35,13 +35,8 @@
   #flakes and experimental features
   nix.settings.experimental-features = ["nix-command" "flakes" ];
 
-  # Keep the Nix store from growing forever: weekly GC of generations older
-  # than 2 weeks, plus automatic deduplication of identical store files.
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 14d";
-  };
+  # Keep the Nix store from growing forever. `programs.nh.clean` below owns
+  # scheduled garbage collection, so don't also enable `nix.gc.automatic`.
   nix.settings.auto-optimise-store = true;
 
   # Binary caches for Hyprland + Noctalia/Quickshell (skips compiling from source).
