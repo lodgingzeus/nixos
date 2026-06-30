@@ -44,6 +44,9 @@ hl.monitor({
 hl.on("hyprland.start", function()
     hl.exec_cmd("noctalia")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
+    hl.exec_cmd("sleep 2 && google-chrome-stable")
+    hl.exec_cmd("sleep 3 && code")
+    hl.exec_cmd("sleep 4 && spotify")
 end)
 
 local environment = {

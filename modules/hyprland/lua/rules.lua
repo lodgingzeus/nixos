@@ -49,6 +49,14 @@ hl.window_rule({
     size = { "(monitor_w*0.45)", "(monitor_h*0.50)" },
 })
 
+hl.window_rule({
+    name = "spotify-special-workspace",
+    match = {
+        class = "^[Ss]potify$",
+    },
+    workspace = "special:magic silent",
+})
+
 -- Loupe image viewer pops out as a centered floating window.
 hl.window_rule({
     name = "image-viewer-float",
