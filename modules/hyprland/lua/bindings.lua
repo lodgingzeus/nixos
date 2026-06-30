@@ -21,7 +21,7 @@ command(mainMod .. " + R", menu)
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 command(mainMod .. " + Z", ipc .. " panel-toggle control-center")
 command(mainMod .. " + comma", ipc .. " settings-toggle")
-command(mainMod .. " + SHIFT + C", ipc .. " panel-toggle launcher clipboard")
+command(mainMod .. " + SHIFT + C", ipc .. " panel-toggle clipboard")
 
 local directions = {
     left = "left",
