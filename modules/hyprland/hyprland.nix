@@ -119,7 +119,7 @@
         {
           monitor = "";
           text = ''cmd[update:60000] date +"%A, %d %B"'';
-          position = "0, 14";
+          position = "0, 8";
           halign = "center";
           valign = "center";
           color = "rgba(ebbcbaee)";
@@ -129,7 +129,7 @@
         {
           monitor = "";
           text = "Welcome back, Deepak";
-          position = "0, -84";
+          position = "0, -72";
           halign = "center";
           valign = "center";
           color = "rgba(e0def4d9)";
@@ -142,7 +142,7 @@
         {
           monitor = "";
           size = "280, 46";
-          position = "0, -42";
+          position = "0, -26";
           halign = "center";
           valign = "center";
           dots_center = true;
