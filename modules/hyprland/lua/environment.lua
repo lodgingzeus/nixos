@@ -56,10 +56,6 @@ local environment = {
     GTK_USE_PORTAL = "1",
     XCURSOR_SIZE = "24",
     HYPRCURSOR_SIZE = "24",
-    GBM_BACKEND = "nvidia-drm",
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia",
-    LIBVA_DRIVER_NAME = "nvidia",
-    NVD_BACKEND = "direct",
     NIXOS_OZONE_WL = "1",
 }
 

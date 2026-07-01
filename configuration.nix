@@ -207,7 +207,16 @@
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
   # Web Browser
-    google-chrome
+    (symlinkJoin {
+      name = "google-chrome-stable-video-safe";
+      paths = [ google-chrome ];
+      nativeBuildInputs = [ makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/google-chrome-stable \
+          --add-flags "--disable-accelerated-video-decode" \
+          --add-flags "--disable-features=VaapiVideoDecoder,VaapiVideoEncoder"
+      '';
+    })
 
     # Text Editor / IDE
     vscode
