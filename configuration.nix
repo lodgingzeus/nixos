@@ -207,16 +207,7 @@
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
   # Web Browser
-    (symlinkJoin {
-      name = "google-chrome-stable-video-safe";
-      paths = [ google-chrome ];
-      nativeBuildInputs = [ makeWrapper ];
-      postBuild = ''
-        wrapProgram $out/bin/google-chrome-stable \
-          --add-flags "--disable-accelerated-video-decode" \
-          --add-flags "--disable-features=VaapiVideoDecoder,VaapiVideoEncoder"
-      '';
-    })
+    google-chrome
 
     # Text Editor / IDE
     vscode
@@ -231,10 +222,12 @@
     eza       # modern `ls` with icons/git
     btop      # pretty resource monitor
     tldr      # concise command examples
+    libva-utils # `vainfo` for checking the active video acceleration driver
 
     # Development Tools
     git
     nodejs_22
+    php85
     (python3.withPackages (pythonPackages: with pythonPackages; [
       pip
     ]))
@@ -273,6 +266,9 @@
    # Hyprland exec chain (e.g. systemd user services).
    environment.sessionVariables = {
      NIXOS_OZONE_WL = "1";
+     # Hybrid graphics default: regular desktop apps should use the AMD iGPU's
+     # Mesa VA-API driver. Use `nvidia-offload <app>` for explicit dGPU runs.
+     LIBVA_DRIVER_NAME = "radeonsi";
      NH_FLAKE = "/home/deepak/nixos";
      NH_OS_FLAKE = "/home/deepak/nixos";
    };
