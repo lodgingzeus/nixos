@@ -50,6 +50,22 @@ hl.window_rule({
 })
 
 hl.window_rule({
+    name = "chrome-default-workspace",
+    match = {
+        class = "^(google-chrome|google-chrome-stable)$",
+    },
+    workspace = "1 silent",
+})
+
+hl.window_rule({
+    name = "vscode-editor-workspace",
+    match = {
+        class = "^(code|Code)$",
+    },
+    workspace = "2 silent",
+})
+
+hl.window_rule({
     name = "spotify-special-workspace",
     match = {
         class = "^[Ss]potify$",

@@ -106,6 +106,16 @@
       cd = "z"; # zoxide smart-cd
       mount-rsks = "sshfs staging-0248-rsksindiablog.wordpress.com@sftp.wp.com:. ~/mnt/wordpress";
     };
+    # graphify's uv-managed Python bypasses nix-ld, so numpy's C-extension can't
+    # dlopen libstdc++.so.6. Inject the nix-ld lib dir (which has the correct
+    # 64-bit copy, provided by programs.nix-ld.libraries) onto LD_LIBRARY_PATH
+    # for graphify only — not globally, so other dynamically-linked programs are
+    # unaffected.
+    initExtra = ''
+      graphify() {
+        LD_LIBRARY_PATH="/run/current-system/sw/share/nix-ld/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" command graphify "$@"
+      }
+    '';
   };
 
   programs.starship.enable = true; # nice prompt
