@@ -42,6 +42,7 @@ hl.monitor({
 })
 
 hl.on("hyprland.start", function()
+    hl.exec_cmd("~/.config/hypr/scripts/theme-wallpaper")
     hl.exec_cmd("noctalia")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
     hl.exec_cmd("sleep 2 && google-chrome-stable")
