@@ -23,8 +23,6 @@
     playerctl      # media play/pause/next keys
     cliphist       # clipboard history (Super+Shift+C)
     wl-clipboard   # Wayland clipboard backend
-    hyprpaper       # Hyprland-native wallpaper daemon
-    imagemagick     # wallpaper palette extraction + fallback wallpaper generation
 
     # Fonts for the terminal/UI glyphs
     nerd-fonts.jetbrains-mono
@@ -132,13 +130,6 @@
   xdg.userDirs = {
     enable = true;
     createDirectories = true;
-  };
-
-  xdg.configFile = {
-    "hypr/scripts/theme-wallpaper".source = ./modules/hyprland/scripts/theme-wallpaper.sh;
-    "hypr/scripts/theme-wallpaper".executable = true;
-    "hypr/scripts/lock-pretty".source = ./modules/hyprland/scripts/lock-pretty.sh;
-    "hypr/scripts/lock-pretty".executable = true;
   };
 
   # ---------- Default apps for files (double-click / "Open with") ----------
