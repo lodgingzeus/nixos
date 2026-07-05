@@ -207,7 +207,9 @@
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
   # Web Browser
-    google-chrome
+    (google-chrome.override {
+      commandLineArgs = "--disable-accelerated-video-decode --disable-features=VaapiVideoDecoder,VaapiVideoEncoder";
+    })
 
     # Text Editor / IDE
     vscode
