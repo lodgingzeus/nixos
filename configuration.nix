@@ -27,6 +27,10 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  # Keep WiFi at full power even when idle, so SSH stays reachable with the
+  # lid closed (powersave can throttle/drop the radio when nothing is
+  # actively using it).
+  networking.networkmanager.wifi.powersave = false;
   hardware.enableRedistributableFirmware = true;
   hardware.enableAllFirmware = true;
   # Set your time zone.
@@ -315,6 +319,15 @@
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
     };
+  };
+
+  # Don't suspend when the lid is closed, so SSH (and Docker containers)
+  # stay reachable over LAN with the laptop closed. Applies both on battery
+  # and on AC.
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitchDocked = "ignore";
   };
 
   # Open ports in the firewall.
