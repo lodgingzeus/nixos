@@ -229,6 +229,7 @@
     btop      # pretty resource monitor
     tldr      # concise command examples
     libva-utils # `vainfo` for checking the active video acceleration driver
+    uxplay      # AirPlay mirroring receiver (mirror macOS/iOS display here)
 
     # Development Tools
     git
@@ -335,10 +336,30 @@
   # only devices you log into the same tailnet can reach this laptop.
   services.tailscale.enable = true;
 
+  # Avahi/mDNS: lets AirPlay clients (e.g. macOS screen mirroring via UxPlay)
+  # discover this machine on the local network.
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      userServices = true;
+    };
+  };
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
-  networking.firewall.allowedUDPPorts = [ 41641 ]; # Tailscale direct connections
-  networking.firewall.trustedInterfaces = [ "tailscale0" ];
+  networking.firewall.allowedUDPPorts = [
+    41641 # Tailscale direct connections
+    5353  # mDNS (Avahi/AirPlay discovery)
+    6362  # UxPlay AirPlay data
+  ];
+  networking.firewall.allowedTCPPorts = [
+    7000 7001 7100 # UxPlay AirPlay/RAOP ports
+  ];
+  # wlo1 (Wi-Fi) is trusted so AirPlay (UxPlay) works on the home network
+  # without enumerating dynamic ports.
+  networking.firewall.trustedInterfaces = [ "tailscale0" "wlo1" ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
