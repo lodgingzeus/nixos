@@ -181,9 +181,12 @@
           on-timeout = "loginctl lock-session";
         }
         {
-          timeout = 3600;
-          on-timeout = "systemctl suspend";
+          timeout = 2100;
+          on-timeout = "hyprctl dispatch dpms off";
+          on-resume = "hyprctl dispatch dpms on";
         }
+        # No suspend-on-idle listener: this laptop stays up so SSH/Tailscale
+        # access keeps working while idle, matching the lid-close override.
       ];
     };
   };

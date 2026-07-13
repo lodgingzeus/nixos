@@ -318,6 +318,7 @@
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
+      LogLevel = "VERBOSE";
     };
   };
 
@@ -330,9 +331,14 @@
     HandleLidSwitchDocked = "ignore";
   };
 
+  # Tailscale: private mesh VPN between your own devices. No public exposure —
+  # only devices you log into the same tailnet can reach this laptop.
+  services.tailscale.enable = true;
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedUDPPorts = [ 41641 ]; # Tailscale direct connections
+  networking.firewall.trustedInterfaces = [ "tailscale0" ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
