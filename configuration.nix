@@ -212,7 +212,7 @@
   #  wget
   # Web Browser
     (google-chrome.override {
-      commandLineArgs = "--disable-accelerated-video-decode --disable-features=VaapiVideoDecoder,VaapiVideoEncoder";
+      commandLineArgs = "--password-store=gnome-libsecret --disable-accelerated-video-decode --disable-features=VaapiVideoDecoder,VaapiVideoEncoder";
     })
 
     # Text Editor / IDE
