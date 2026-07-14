@@ -16,6 +16,7 @@
 
   home.packages = with pkgs; [
     fastfetch
+    deskflow       # Keyboard/mouse sharing (Wayland requires compositor portals)
 
     # Tools the Hyprland keybinds call:
     hyprshot       # screenshots (Print keys)

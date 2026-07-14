@@ -356,6 +356,7 @@
   ];
   networking.firewall.allowedTCPPorts = [
     7000 7001 7100 # UxPlay AirPlay/RAOP ports
+    24800          # Deskflow server
   ];
   # wlo1 (Wi-Fi) is trusted so AirPlay (UxPlay) works on the home network
   # without enumerating dynamic ports.
