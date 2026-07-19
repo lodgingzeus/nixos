@@ -336,6 +336,28 @@
   # only devices you log into the same tailnet can reach this laptop.
   services.tailscale.enable = true;
 
+  # code-server: browser-based VS Code, reachable from any device on the
+  # tailnet at http://nixos:4444 (or the machine's Tailscale IP). auth=none
+  # is acceptable here because tailscale0 is a trusted firewall interface
+  # (below) — only tailnet-authenticated devices can reach this port, it is
+  # never exposed to the LAN or the public internet.
+  # Runs as deepak (not a separate code-server user) and points straight at
+  # the same extensions/settings dirs as desktop VS Code, so installed
+  # extensions and settings carry over automatically. Avoid running desktop
+  # VS Code and code-server at the exact same moment against this profile —
+  # both write to the same sqlite state file and concurrent writes could
+  # corrupt it.
+  services.code-server = {
+    enable = true;
+    user = "deepak";
+    group = "users";
+    host = "0.0.0.0";
+    port = 4444;
+    auth = "none";
+    extensionsDir = "/home/deepak/.vscode/extensions";
+    userDataDir = "/home/deepak/.config/Code";
+  };
+
   # Avahi/mDNS: lets AirPlay clients (e.g. macOS screen mirroring via UxPlay)
   # discover this machine on the local network.
   services.avahi = {
