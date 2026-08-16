@@ -1,2 +1,0 @@
--- Dheeraj's Hyprland 0.55+ configuration.
--- Home Manager appends the modules in a deterministic order.
